@@ -1,0 +1,23 @@
+/.gradle/
+/.kotlin/
+/.idea/
+/local.properties
+**/build/
+*.iml
+
+# 배포 결과물은 GitHub Release에만 첨부한다.
+*.apk
+*.aab
+/dist/
+
+# 앱 서명 열쇠와 비밀번호는 저장소에 절대 올리지 않는다.
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+/.secrets/
+
+# 운영체제와 도구가 만드는 임시 파일
+*.log
+.DS_Store
+Thumbs.db

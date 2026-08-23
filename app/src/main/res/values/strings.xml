@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">한 달 일정 파일 만들기</string>
+    <string name="permission_description">휴대폰에 있는 한 달 일정을 한 번에 불러와 파일로 보낼 수 있어요.</string>
+    <string name="grant_permission">일정 읽기 허용</string>
+    <string name="load_calendar">이 달 일정 불러오기</string>
+    <string name="previous_month">이전 달</string>
+    <string name="next_month">다음 달</string>
+    <string name="calendar_selection">가져올 일정표</string>
+    <string name="export_csv">표 파일 보내기</string>
+    <string name="export_json">자료 파일 보내기</string>
+    <string name="export_text">글 파일 보내기</string>
+    <string name="provider_loading">일정을 불러오는 중…</string>
+    <string name="event_count">%1$d년 %2$d월 · 일정 %3$d개</string>
+    <string name="permission_denied">일정 읽기를 허용하지 않았어요.</string>
+    <string name="permission_reason">선택한 일정표에서 약속을 불러오려면 일정 읽기를 허용해 주세요. 내용은 휴대폰 안에서만 처리됩니다.</string>
+    <string name="permission_denied_help">일정을 불러오려면 일정 읽기 허용이 필요해요. 허용하지 않아도 앱은 종료되지 않습니다.</string>
+    <string name="open_phone_settings">휴대폰 설정 열기</string>
+    <string name="close">닫기</string>
+    <string name="cancel">취소</string>
+    <string name="continue_label">계속</string>
+    <string name="no_calendars">휴대폰에서 가져올 일정표를 찾지 못했어요.</string>
+    <string name="unnamed_calendar">이름 없는 일정표</string>
+    <string name="calendar_choice_description">%1$s 일정표 선택</string>
+    <string name="select_calendar_error">가져올 일정표를 하나 이상 선택해 주세요.</string>
+    <string name="load_error_title">일정을 불러오지 못했어요.</string>
+    <string name="share_error">파일을 보내지 못했어요: %1$s</string>
+    <string name="permission_missing">일정 읽기가 허용되지 않았어요. 휴대폰 설정에서 확인해 주세요.</string>
+    <string name="no_events">이 달에는 일정이 없습니다.</string>
+    <string name="share_chooser_title">일정 파일 보내기</string>
+</resources>
