@@ -32,7 +32,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", "Noto Sans KR", sans-serif;
       font-size: 18px;
       line-height: 1.6;
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
       overflow-wrap: anywhere;
       -webkit-font-smoothing: antialiased;
     }
@@ -73,7 +73,6 @@
       position: relative;
       overflow: hidden;
       padding: clamp(70px, 11vw, 138px) 0 clamp(86px, 12vw, 150px);
-      text-align: center;
       isolation: isolate;
     }
     .hero::before {
@@ -88,29 +87,30 @@
       filter: blur(4px);
       transform: translateX(-50%);
     }
-    .eyebrow { margin: 0 0 18px; color: var(--blue); font-size: clamp(18px, 2.5vw, 22px); font-weight: 700; line-height: 1.3; letter-spacing: -0.025em; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1.1fr); align-items: center; gap: clamp(36px, 6vw, 80px); }
+    .hero-copy { text-align: left; }
     h1 {
-      max-width: 880px;
-      margin: 0 auto;
-      font-size: clamp(44px, 8.3vw, 82px);
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(44px, 6vw, 72px);
       font-weight: 750;
-      line-height: 1.04;
-      letter-spacing: -0.058em;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
       text-wrap: balance;
       word-break: keep-all;
     }
     .hero-lead {
       max-width: 650px;
-      margin: 28px auto 0;
+      margin: 26px 0 0;
       color: var(--secondary);
       font-size: clamp(20px, 3vw, 27px);
       font-weight: 450;
       line-height: 1.48;
-      letter-spacing: -0.025em;
+      letter-spacing: 0;
       text-wrap: pretty;
       word-break: keep-all;
     }
-    .hero-actions { display: flex; margin-top: 36px; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .hero-actions { display: flex; margin-top: 34px; align-items: center; justify-content: flex-start; gap: 18px; flex-wrap: wrap; }
     .download-button {
       display: inline-flex;
       min-height: 58px;
@@ -132,7 +132,7 @@
     .download-button:active { background: var(--blue-deep); transform: translateY(0) scale(0.98); }
     .download-button svg { width: 21px; height: 21px; fill: currentColor; }
     .download-meta { color: var(--tertiary); font-size: 15px; line-height: 1.45; }
-    .product-stage { position: relative; width: min(100%, 800px); min-height: clamp(365px, 62vw, 610px); margin: clamp(62px, 9vw, 100px) auto 0; perspective: 1500px; }
+    .product-stage { position: relative; width: min(100%, 680px); min-height: clamp(500px, 52vw, 610px); margin: 0 auto; perspective: 1500px; }
     .product-glow { position: absolute; top: 28%; left: 50%; width: 82%; height: 55%; background: radial-gradient(ellipse, rgba(0, 113, 227, 0.22), transparent 67%); filter: blur(24px); transform: translateX(-50%); }
     .phone {
       position: absolute;
@@ -157,7 +157,7 @@
     }
     .phone-screen::before { content: ""; position: absolute; top: 12px; left: 50%; width: 31%; height: 19px; background: #0d0d0e; border-radius: 20px; transform: translateX(-50%); }
     .screen-label { margin: 0; color: var(--tertiary); font-size: clamp(10px, 1.7vw, 14px); font-weight: 600; letter-spacing: 0; }
-    .screen-month { margin: 2px 0 18px; font-size: clamp(24px, 4.5vw, 38px); font-weight: 750; line-height: 1.18; letter-spacing: -0.05em; }
+    .screen-month { margin: 2px 0 18px; font-size: clamp(24px, 4.5vw, 38px); font-weight: 750; line-height: 1.18; letter-spacing: -0.025em; }
     .mini-calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: clamp(4px, 1.15vw, 9px); margin-bottom: clamp(20px, 3vw, 30px); color: #3a3a3c; font-size: clamp(8px, 1.35vw, 12px); text-align: center; }
     .mini-calendar span { display: grid; aspect-ratio: 1; place-items: center; border-radius: 50%; }
     .mini-calendar .day { color: var(--tertiary); font-weight: 650; }
@@ -178,12 +178,10 @@
       padding: clamp(13px, 2vw, 18px);
       align-items: center;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.83);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: #fff;
+      border: 0;
       border-radius: 22px;
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12);
-      backdrop-filter: blur(20px) saturate(150%);
-      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
       text-align: left;
     }
     .file-left { top: 37%; left: 3%; transform: rotate(-5deg); }
@@ -195,24 +193,23 @@
     .section { padding: clamp(92px, 12vw, 146px) 0; }
     .section-alt { background: var(--section); }
     .section-heading { max-width: 760px; margin: 0 auto; text-align: center; }
-    .section-kicker { margin: 0 0 10px; color: var(--blue); font-size: 17px; font-weight: 700; line-height: 1.3; }
-    h2 { margin: 0; font-size: clamp(36px, 6.4vw, 62px); font-weight: 730; line-height: 1.08; letter-spacing: -0.052em; text-wrap: balance; word-break: keep-all; }
+    .section-heading-left { max-width: 820px; margin-inline: 0; text-align: left; }
+    h2 { margin: 0; font-size: clamp(36px, 6.4vw, 62px); font-weight: 730; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance; word-break: keep-all; }
     .section-description { max-width: 670px; margin: 22px auto 0; color: var(--secondary); font-size: clamp(19px, 2.8vw, 24px); line-height: 1.55; text-wrap: pretty; word-break: keep-all; }
-    .feature-grid { display: grid; margin-top: clamp(58px, 8vw, 88px); grid-template-columns: repeat(3, 1fr); }
-    .feature { padding: 0 clamp(24px, 4vw, 42px); text-align: center; }
-    .feature + .feature { border-left: 1px solid var(--line); }
-    .feature-icon { display: grid; width: 58px; height: 58px; margin: 0 auto 22px; color: var(--blue); background: #e8f2ff; border-radius: 18px; place-items: center; }
-    .feature-icon svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
-    .feature h3 { margin: 0 0 10px; font-size: 23px; line-height: 1.28; letter-spacing: -0.035em; word-break: keep-all; }
-    .feature p { margin: 0; color: var(--secondary); font-size: 17px; line-height: 1.6; word-break: keep-all; }
+    .trust-list { max-width: 820px; margin: clamp(48px, 7vw, 72px) 0 0; border-top: 1px solid var(--line); }
+    .trust-item { display: grid; padding: 28px 0; grid-template-columns: 48px minmax(0, 1fr); align-items: start; gap: 22px; border-bottom: 1px solid var(--line); }
+    .trust-icon { color: var(--blue); padding-top: 2px; }
+    .trust-icon svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+    .trust-item h3 { margin: 0 0 5px; font-size: 23px; line-height: 1.3; letter-spacing: -0.015em; word-break: keep-all; }
+    .trust-item p { margin: 0; color: var(--secondary); font-size: 17px; line-height: 1.6; word-break: keep-all; }
     .steps { display: grid; margin: clamp(58px, 8vw, 84px) 0 0; padding: 0; grid-template-columns: repeat(3, 1fr); list-style: none; counter-reset: step; }
     .steps li { position: relative; padding: 0 clamp(22px, 4vw, 44px); counter-increment: step; text-align: center; }
     .steps li + li::before { content: ""; position: absolute; top: 37px; left: -12%; width: 24%; height: 1px; background: #c7c7cc; }
     .step-number { display: grid; width: 74px; height: 74px; margin: 0 auto 24px; color: #fff; background: var(--ink); border-radius: 50%; font-size: 28px; font-weight: 650; place-items: center; }
-    .steps h3 { margin: 0 0 9px; font-size: 22px; line-height: 1.3; letter-spacing: -0.035em; word-break: keep-all; }
+    .steps h3 { margin: 0 0 9px; font-size: 22px; line-height: 1.3; letter-spacing: -0.015em; word-break: keep-all; }
     .steps p { margin: 0; color: var(--secondary); font-size: 17px; line-height: 1.58; word-break: keep-all; }
     .help-wrap { max-width: 820px; }
-    details { overflow: hidden; background: var(--white); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 16px 50px rgba(0, 0, 0, 0.05); }
+    details { overflow: hidden; background: var(--white); border: 1px solid var(--line); border-radius: 16px; }
     summary { position: relative; min-height: 76px; padding: 23px 68px 20px 28px; cursor: pointer; font-size: 20px; font-weight: 650; line-height: 1.45; list-style: none; word-break: keep-all; }
     summary::-webkit-details-marker { display: none; }
     summary::after { content: "+"; position: absolute; top: 50%; right: 28px; color: var(--blue); font-size: 30px; font-weight: 400; line-height: 1; transform: translateY(-54%); }
@@ -222,28 +219,28 @@
     .help-body li { margin-bottom: 15px; }
     .help-note { margin: 24px 0 0; padding: 18px 20px; background: #fff8e8; border-radius: 14px; color: #4b3b14; font-size: 16px; }
     .help-note strong { display: block; margin-bottom: 2px; }
-    .final-cta { position: relative; overflow: hidden; padding: clamp(96px, 14vw, 168px) 0; color: #fff; background: #000; text-align: center; isolation: isolate; }
-    .final-cta::before { content: ""; position: absolute; z-index: -1; top: -180px; left: 50%; width: 760px; height: 520px; background: radial-gradient(circle, rgba(0, 113, 227, 0.6), transparent 66%); filter: blur(38px); transform: translateX(-50%); }
+    .final-cta { padding: clamp(96px, 14vw, 154px) 0; color: #fff; background: #101010; text-align: center; }
     .final-cta h2 { max-width: 720px; margin-inline: auto; }
     .final-cta p { margin: 24px 0 34px; color: rgba(255, 255, 255, 0.72); font-size: clamp(19px, 2.8vw, 24px); }
     .final-cta .download-button { box-shadow: none; }
     footer { padding: 30px 0 40px; color: var(--tertiary); background: #000; border-top: 1px solid rgba(255, 255, 255, 0.13); font-size: 13px; line-height: 1.6; text-align: center; }
     footer p { margin: 2px 0; }
     .reveal { animation: reveal 700ms cubic-bezier(.2, .75, .3, 1) both; }
-    .reveal-delay { animation-delay: 100ms; }
     @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 720px) {
       .container { width: min(calc(100% - 32px), var(--max)); }
       .hero { padding-top: 64px; }
+      .hero-layout { grid-template-columns: 1fr; gap: 0; }
+      .hero-copy { text-align: center; }
+      h1 { margin-inline: auto; }
+      .hero-lead { margin-inline: auto; }
       .hero-actions { flex-direction: column; gap: 15px; }
-      .product-stage { min-height: 430px; }
+      .product-stage { min-height: 430px; margin-top: clamp(62px, 9vw, 100px); }
       .phone { width: min(268px, 75vw); }
       .phone-screen { min-height: 395px; }
       .file-left { top: 56%; left: -2%; }
       .file-right { top: 17%; right: -2%; }
-      .feature-grid, .steps { grid-template-columns: 1fr; }
-      .feature { padding: 36px 8px; }
-      .feature + .feature { border-top: 1px solid var(--line); border-left: 0; }
+      .steps { grid-template-columns: 1fr; }
       .steps { gap: 52px; }
       .steps li { padding: 0 18px; }
       .steps li + li::before { display: none; }
@@ -262,9 +259,9 @@
       summary::after { right: 22px; }
       .help-body { padding-inline: 22px; }
     }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .download-button { transition: none; } .reveal, .reveal-delay { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .download-button { transition: none; } .reveal { animation: none; } }
     @media (prefers-contrast: more) { :root { --secondary: #454549; --tertiary: #5c5c60; --line: rgba(0, 0, 0, 0.24); } .site-nav { background: rgba(255, 255, 255, 0.96); } }
-    @media (forced-colors: active) { .download-button, .nav-download, .step-number, .feature-icon { border: 2px solid ButtonText; } }
+    @media (forced-colors: active) { .download-button, .nav-download, .step-number { border: 2px solid ButtonText; } }
   </style>
 </head>
 <body>
@@ -276,16 +273,17 @@
   </nav>
   <main id="top">
     <section class="hero" aria-labelledby="main-title">
-      <div class="container">
-        <p class="eyebrow reveal">한 달 일정 파일 만들기</p>
-        <h1 class="reveal" id="main-title">내 일정을.<br>한 번에, 깔끔하게.</h1>
-        <p class="hero-lead reveal reveal-delay">휴대폰 일정표에서 원하는 달을 골라 표 파일이나 글 파일로 간단히 만들어 보세요.</p>
-        <div class="hero-actions reveal reveal-delay">
-          <a class="download-button" href="https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk" aria-describedby="download-info">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3a1 1 0 0 1 2 0v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V3ZM5 17a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
-            <span>앱 다운로드</span>
-          </a>
-          <span class="download-meta" id="download-info">Android 8 이상 · 1.8MB · 버전 0.1.0</span>
+      <div class="container hero-layout">
+        <div class="hero-copy reveal">
+          <h1 id="main-title">휴대폰 한 달 일정을<br>파일로 만드세요</h1>
+          <p class="hero-lead">원하는 달을 고르면 CSV·JSON·TXT 세 가지 형식으로 만들어 바로 보낼 수 있습니다.</p>
+          <div class="hero-actions">
+            <a class="download-button" href="https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk" aria-describedby="download-info">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3a1 1 0 0 1 2 0v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V3ZM5 17a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
+              <span>앱 다운로드</span>
+            </a>
+            <span class="download-meta" id="download-info">Android 8 이상 · 1.8MB · 버전 0.1.0</span>
+          </div>
         </div>
         <div class="product-stage" aria-label="휴대폰 일정에서 여러 형식의 파일을 만드는 모습">
           <div class="product-glow" aria-hidden="true"></div>
@@ -312,21 +310,20 @@
     </section>
     <section class="section section-alt" aria-labelledby="privacy-title">
       <div class="container">
-        <div class="section-heading">
-          <p class="section-kicker">내 일정은 내 휴대폰 안에</p>
-          <h2 id="privacy-title">간편함은 더하고.<br>걱정은 덜고.</h2>
-          <p class="section-description">일정을 읽고 파일로 만드는 모든 과정은 이 휴대폰 안에서 이루어집니다.</p>
+        <div class="section-heading section-heading-left">
+          <h2 id="privacy-title">일정은 휴대폰 안에서만 처리됩니다</h2>
+          <p class="section-description">앱은 일정 읽기 권한만 사용하며, 파일을 만들 때도 일정 내용을 외부로 전송하지 않습니다.</p>
         </div>
-        <div class="feature-grid">
-          <article class="feature"><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 14V9a8 8 0 0 1 16 0v5M6 14h20v15H6z"/><path d="m12 21 3 3 6-7"/></svg></span><h3>읽기만 합니다</h3><p>일정을 바꾸거나 지우지 않습니다.</p></article>
-          <article class="feature"><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" rx="4"/><path d="M4 12h24M10 3v6M22 3v6"/></svg></span><h3>휴대폰 안에서 만듭니다</h3><p>앱이 일정을 자동으로 인터넷에 보내지 않습니다.</p></article>
-          <article class="feature"><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4v17M10 10l6-6 6 6"/><path d="M7 17v11h18V17"/></svg></span><h3>직접 선택합니다</h3><p>파일을 보낼 앱과 사람을 내가 직접 고릅니다.</p></article>
+        <div class="trust-list">
+          <article class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 14V9a8 8 0 0 1 16 0v5M6 14h20v15H6z"/><path d="m12 21 3 3 6-7"/></svg></span><div><h3>일정을 읽기만 합니다</h3><p>기존 일정을 수정하거나 삭제할 권한이 없습니다.</p></div></article>
+          <article class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" rx="4"/><path d="M4 12h24M10 3v6M22 3v6"/></svg></span><div><h3>파일은 휴대폰 안에서 만듭니다</h3><p>앱 자체 서버나 분석 서비스로 일정 내용을 보내지 않습니다.</p></div></article>
+          <article class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4v17M10 10l6-6 6 6"/><path d="M7 17v11h18V17"/></svg></span><div><h3>공유 대상은 직접 고릅니다</h3><p>공유 버튼을 누른 뒤 보낼 앱과 사람을 사용자가 선택합니다.</p></div></article>
         </div>
       </div>
     </section>
     <section class="section" aria-labelledby="steps-title">
       <div class="container">
-        <div class="section-heading"><p class="section-kicker">쉽고 빠르게</p><h2 id="steps-title">설치는 세 단계면<br>충분합니다.</h2></div>
+        <div class="section-heading"><h2 id="steps-title">다운로드부터 실행까지</h2><p class="section-description">아래 순서대로 진행하면 설치를 마칠 수 있습니다.</p></div>
         <ol class="steps">
           <li><span class="step-number">1</span><h3>다운로드</h3><p>파란색 앱 다운로드 버튼을 누르세요.</p></li>
           <li><span class="step-number">2</span><h3>설치</h3><p>받은 파일을 열고 설치를 누르세요.</p></li>
@@ -353,8 +350,8 @@
     </section>
     <section class="final-cta" aria-labelledby="final-title">
       <div class="container">
-        <h2 id="final-title">한 달 일정 정리.<br>이제 가볍게 시작하세요.</h2>
-        <p>로그인도, 광고도, 복잡한 과정도 없습니다.</p>
+        <h2 id="final-title">원하는 달의 일정을 파일로 만들어 보세요</h2>
+        <p>로그인과 회원가입 없이 바로 내려받을 수 있습니다.</p>
         <a class="download-button" href="https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3a1 1 0 0 1 2 0v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V3ZM5 17a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
           <span>앱 다운로드</span>
