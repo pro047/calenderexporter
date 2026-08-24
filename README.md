@@ -19,7 +19,7 @@ Android `CalendarContract`에서 기기에 동기화된 월간 일정을 읽어 
 
 ## 설치 파일 받기
 
-GitHub의 최신 Release에서 `month-calendar-exporter-v0.1.2.apk`를 내려받아
+GitHub의 최신 Release에서 `month-calendar-exporter-v0.1.3.apk`를 내려받아
 설치합니다. 앱스토어를 거치지 않으므로 휴대폰에서 다운로드에 사용한 브라우저의
 `출처를 알 수 없는 앱 설치`를 한 번 허용해야 할 수 있습니다.
 

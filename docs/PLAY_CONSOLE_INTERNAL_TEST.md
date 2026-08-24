@@ -2,8 +2,8 @@
 
 ## 준비된 파일
 
-- 업로드 번들: `dist/month-calendar-exporter-v0.1.2.aab`
-- SHA-256: `dist/month-calendar-exporter-v0.1.2.aab.sha256.txt`
+- 업로드 번들: `dist/month-calendar-exporter-v0.1.3.aab`
+- SHA-256: `dist/month-calendar-exporter-v0.1.3.aab.sha256.txt`
 - 스토어 문구: `docs/STORE_LISTING_KO.md`
 - 개인정보처리방침: `https://pro047.github.io/calenderexporter/privacy.html`
 
@@ -23,10 +23,10 @@ Play Console에서 **모든 앱 → 앱 만들기**를 연다.
 **테스트 및 출시 → 테스트 → 내부 테스트 → 새 버전 만들기**에서 다음 AAB를 업로드한다.
 
 ```text
-dist/month-calendar-exporter-v0.1.2.aab
+dist/month-calendar-exporter-v0.1.3.aab
 ```
 
-- 출시 이름: `0.1.2-internal-1`
+- 출시 이름: `0.1.3-internal-1`
 - 출시 노트: `docs/STORE_LISTING_KO.md`의 내부 테스트 출시 노트 사용
 - Play 앱 서명: 사용
 
@@ -47,7 +47,7 @@ dist/month-calendar-exporter-v0.1.2.aab
 
 ## 4. 앱 콘텐츠 답변
 
-현재 0.1.2 구현을 기준으로 입력한다.
+현재 0.1.3 구현을 기준으로 입력한다.
 
 - 광고 포함 여부: **아니요**
 - 앱 액세스: **모든 기능을 제한 없이 이용 가능** — 로그인 없음
@@ -92,7 +92,7 @@ Play Console에서 권한 사용 목적을 묻는 경우 다음 문구를 사용
 1. 공개 개인정보처리방침 URL이 로그인 없이 열리는지 확인한다.
 2. 지원 이메일을 실제 수신 가능한 주소로 입력한다.
 3. 테스터 Google 계정이 목록에 포함됐는지 확인한다.
-4. AAB의 버전 코드가 `3`, 버전 이름이 `0.1.2`인지 확인한다.
+4. AAB의 버전 코드가 `4`, 버전 이름이 `0.1.3`인지 확인한다.
 5. 내부 테스트 버전을 게시하고 참여 링크로 Play 스토어 설치를 확인한다.
 
 내부 테스트 앱은 처음 최대 48시간 동안 임시 앱 이름과 임시 등록정보가 표시될 수 있다.

@@ -43,6 +43,8 @@ class MainActivity : Activity() {
     private lateinit var shareService: CalendarShareService
     private var selectedMonth: YearMonth = YearMonth.now()
     private var calendarsLoaded = false
+    private var calendarsLoading = false
+    private var monthLoadRequestId = 0L
     private var loadedEvents: List<NormalizedCalendarEvent> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,13 +116,11 @@ class MainActivity : Activity() {
     }
 
     private fun changeMonth(delta: Long) {
+        monthLoadRequestId += 1
         selectedMonth = selectedMonth.plusMonths(delta)
         updateMonthText()
-        summaryText.text = ""
-        summaryText.visibility = View.GONE
-        resultText.setText(R.string.preview_hint)
         loadedEvents = emptyList()
-        exportContainer.visibility = View.GONE
+        renderState(if (calendarsLoading) ExtractionUiState.Loading else ExtractionUiState.Idle)
     }
 
     private fun updateMonthText() {
@@ -177,12 +177,14 @@ class MainActivity : Activity() {
     }
 
     private fun loadCalendars(loadEventsAfterward: Boolean = false) {
+        calendarsLoading = true
         calendarContainer.removeAllViews()
         showCalendarHint(R.string.provider_loading)
         renderState(ExtractionUiState.Loading)
         executor.execute {
             val result = runCatching(repository::getCalendars)
             runOnUiThread {
+                calendarsLoading = false
                 result.onSuccess { calendars ->
                     calendarsLoaded = true
                     renderCalendars(calendars)
@@ -239,10 +241,13 @@ class MainActivity : Activity() {
             renderState(ExtractionUiState.Error(getString(R.string.select_calendar_error)))
             return
         }
+        val requestedMonth = selectedMonth
+        val requestId = ++monthLoadRequestId
         renderState(ExtractionUiState.Loading)
         executor.execute {
-            val result = runCatching { repository.getMonthEvents(selectedMonth, selectedIds) }
+            val result = runCatching { repository.getMonthEvents(requestedMonth, selectedIds) }
             runOnUiThread {
+                if (requestId != monthLoadRequestId) return@runOnUiThread
                 result.onSuccess { renderState(ExtractionUiState.Success(it)) }
                     .onFailure { renderState(ExtractionUiState.Error(readableError(it))) }
             }
@@ -253,8 +258,8 @@ class MainActivity : Activity() {
         val loading = state is ExtractionUiState.Loading
         progressBar.visibility = if (loading) View.VISIBLE else View.GONE
         actionButton.isEnabled = !loading
-        previousMonthButton.isEnabled = !loading
-        nextMonthButton.isEnabled = !loading
+        previousMonthButton.isEnabled = true
+        nextMonthButton.isEnabled = true
         if (loading) {
             loadedEvents = emptyList()
             exportContainer.visibility = View.GONE

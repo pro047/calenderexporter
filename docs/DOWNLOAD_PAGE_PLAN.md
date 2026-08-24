@@ -37,7 +37,7 @@ https://pro047.github.io/calenderexporter/
 
 - 앱 아이콘
 - `한 달 일정 보내기`
-- `안드로이드용 · 버전 0.1.2`
+- `안드로이드용 · 버전 0.1.3`
 
 ### 핵심 영역
 
@@ -51,7 +51,7 @@ https://pro047.github.io/calenderexporter/
 다운로드 버튼은 현재 공개된 다음 파일에 연결한다.
 
 ```text
-https://github.com/pro047/calenderexporter/releases/download/v0.1.2/month-calendar-exporter-v0.1.2.apk
+https://github.com/pro047/calenderexporter/releases/download/v0.1.3/month-calendar-exporter-v0.1.3.apk
 ```
 
 ### 안심 안내

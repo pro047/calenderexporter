@@ -1,5 +1,25 @@
 # 테스트 기록
 
+## 0.1.3 자동 검증
+
+검증일: 2026-08-24
+
+- 전체 단위 테스트 18개 통과, 실패·오류 0개
+- 로딩 상태 회귀 테스트 추가
+  - 일정 로딩 중에도 이전·다음 버튼이 활성 상태인지 확인
+  - 로딩 중 다음 달 선택 시 월 표시가 실제로 바뀌는지 확인
+  - 달을 바꾸면 로딩 표시가 정리되고 다시 불러올 수 있는지 확인
+- 요청 ID를 사용해 달 변경 전에 시작한 늦은 조회 결과를 무시하도록 검증
+- `test`, `lintRelease`, `assembleRelease`, `bundleRelease` 성공
+- APK/AAB 내부 버전: `versionCode 4`, `versionName 0.1.3`
+- 최소 Android 8(API 26), target SDK 36 확인
+- 사용자 런타임 권한은 `android.permission.READ_CALENDAR` 하나
+- APK Signature Scheme v2 서명 및 AAB 구조 검증 성공
+- 서명 인증서 SHA-256: `0E781F311FF815510F2D5C4CE4428466D9B6879B98841C0413A5517E684D28D8`
+- APK SHA-256: `350A3F93D8DE1A4FEB4F975DBCE2AB0CE6436296F003E56AD5FF9D3B87818203`
+- AAB SHA-256: `0A3084A9187857D481BFF9FFB16A7E9A655B9B83BE8A95D94D339972AC68455F`
+- 0.1.1·0.1.2와 같은 로컬 서명 키를 사용해 직접 배포 설치본을 업데이트할 수 있음
+
 ## 0.1.2 자동 검증
 
 검증일: 2026-08-24
