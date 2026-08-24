@@ -1,6 +1,32 @@
 # 테스트 기록
 
-## 자동 테스트
+## 0.1.1 자동 검증
+
+검증일: 2026-08-24
+
+- 전체 단위 테스트 14개 통과, 실패·오류 0개
+- 텍스트 포맷 테스트 5개 통과
+  - 같은 날 시간 일정의 한국어 날짜·시간
+  - 자정을 넘는 일정의 시작·종료 날짜
+  - 하루 종일 일정의 종료 제외 날짜 숨김
+  - 여러 날 종일 일정의 실제 포함 종료일
+  - 일정이 없는 달의 완전한 텍스트
+- 공유 Intent 시뮬레이션 테스트 2개 통과
+  - `텍스트로 내보내기`: `text/plain`과 `EXTRA_TEXT`, 파일 URI 없음
+  - `텍스트 파일로 내보내기`: `.txt` URI와 읽기 허용 플래그, 본문 없음
+  - CSV·JSON 캐시 파일이 생성되지 않음
+- `lintDebug`, `lintRelease`: `No issues found`
+- `assembleDebug`, `assembleRelease` 성공
+- APK 내부 버전: `versionCode 2`, `versionName 0.1.1`
+- 최소 Android 8(API 26), target SDK 36 확인
+- 사용자 런타임 권한은 `android.permission.READ_CALENDAR` 하나
+- 연결된 Android 기기가 없어 메시지·카카오톡 앱을 선택하는 실기기 검증은 배포 후 사용자 확인 항목
+- 새 RSA 4096비트 배포 키로 APK Signature Scheme v2 서명 검증 성공
+- 서명 인증서 SHA-256: `0E781F311FF815510F2D5C4CE4428466D9B6879B98841C0413A5517E684D28D8`
+- APK SHA-256: `1AC5EBE010CCE09D4F98E76902C3A8C070C6839B34D2096270DF2A7B76156638`
+- 0.1.0과 서명 키가 달라 기존 설치본 삭제 후 0.1.1 새 설치가 필요함
+
+## 0.1.0 자동 테스트 기록
 
 `testDebugUnitTest`에서 다음 경계를 검증한다.
 
@@ -14,7 +40,7 @@
 - 종일 일정 CSV의 빈 시간 필드
 - JSON 제어문자 이스케이프
 
-## API 36.1 에뮬레이터 검증
+## 0.1.0 API 36.1 에뮬레이터 검증
 
 검증일: 2026-08-23
 
@@ -43,7 +69,7 @@
 - 재요청 전 권한 필요 이유(rationale) 표시
 - 두 번째 거부(`USER_FIXED`) 후 `설정 열기` 표시 및 Calendar Exporter 앱 정보 화면으로 이동
 
-## Release 산출물 검증
+## 0.1.0 Release 산출물 검증
 
 - `test`, `lintRelease`, `assembleRelease` 성공
 - release Lint: `No issues found`
@@ -55,7 +81,7 @@
 - 서명 인증서 SHA-256: `1B0A1518B3D455CB9FE7A6F6CF727861B63821D6E0B0CA62E8C04A63971C2AAB`
 - 배포 APK SHA-256: `527C3378EEA332C44531070AD24E2FC437D4B0251EBD69CE8402E2A699390E12`
 
-## 실기기 인수 테스트
+## 0.1.0 실기기 인수 테스트
 
 검증일: 2026-08-23
 

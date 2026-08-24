@@ -2,38 +2,37 @@ package io.github.pro047.calendarexporter.export
 
 import io.github.pro047.calendarexporter.model.EventPeriod
 import io.github.pro047.calendarexporter.model.NormalizedCalendarEvent
-import org.junit.Assert.assertFalse
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.ZoneId
 
 class CalendarExportFormatterTest {
     private val zone = ZoneId.of("Asia/Seoul")
 
     @Test
-    fun `CSV escapes quotes commas newlines and formula prefixes`() {
-        val csv = CalendarExportFormatter.toCsv(
-            listOf(event(title = "=SUM(1,2)\n\"quoted\"")),
+    fun `timed event is formatted as readable Korean text`() {
+        val text = CalendarExportFormatter.formatMonth(
+            YearMonth.of(2026, 8),
+            listOf(event(title = "병원 예약")),
             zone,
         )
 
-        assertTrue(csv.startsWith("\uFEFF"))
-        assertTrue(csv.contains("'=SUM(1,2)"))
-        assertTrue(csv.contains("\"\"quoted\"\""))
+        assertTrue(text.startsWith("2026년 8월 일정"))
+        assertTrue(text.contains("8월 23일(일) 오전 10:00 ~ 오전 11:00"))
+        assertTrue(text.contains("병원 예약"))
+        assertTrue(text.contains("일정표: 개인"))
+        assertTrue(text.contains("장소: 서울"))
+        assertTrue(text.contains("설명: 설명"))
     }
 
     @Test
-    fun `CSV blocks formula prefix after leading whitespace`() {
-        val csv = CalendarExportFormatter.toCsv(listOf(event(title = "  @command")), zone)
-
-        assertTrue(csv.contains("'  @command"))
-    }
-
-    @Test
-    fun `all day CSV leaves time columns empty`() {
-        val csv = CalendarExportFormatter.toCsv(
+    fun `single all day event does not expose exclusive end date`() {
+        val text = CalendarExportFormatter.formatMonth(
+            YearMonth.of(2026, 8),
             listOf(
                 event(
                     period = EventPeriod.AllDay(
@@ -45,15 +44,51 @@ class CalendarExportFormatterTest {
             zone,
         )
 
-        assertTrue(csv.contains("\"2026-08-23\",\"\",\"2026-08-24\",\"\",\"true\""))
+        assertTrue(text.contains("8월 23일(일) 종일"))
+        assertTrue(!text.contains("8월 24일"))
     }
 
     @Test
-    fun `JSON escapes control characters and emits no trailing comma`() {
-        val json = CalendarExportFormatter.toJson(listOf(event(title = "a\nb")), zone)
+    fun `multi day all day event shows inclusive date range`() {
+        val text = CalendarExportFormatter.formatMonth(
+            YearMonth.of(2026, 8),
+            listOf(
+                event(
+                    period = EventPeriod.AllDay(
+                        LocalDate.of(2026, 8, 23),
+                        LocalDate.of(2026, 8, 26),
+                    ),
+                ),
+            ),
+            zone,
+        )
 
-        assertTrue(json.contains("a\\nb"))
-        assertFalse(json.contains(",\n  }"))
+        assertTrue(text.contains("8월 23일(일) ~ 8월 25일(화) 종일"))
+    }
+
+    @Test
+    fun `event crossing midnight includes both dates`() {
+        val text = CalendarExportFormatter.formatMonth(
+            YearMonth.of(2026, 8),
+            listOf(
+                event(
+                    period = EventPeriod.Timed(
+                        Instant.parse("2026-08-23T14:30:00Z"),
+                        Instant.parse("2026-08-23T16:30:00Z"),
+                    ),
+                ),
+            ),
+            zone,
+        )
+
+        assertTrue(text.contains("8월 23일(일) 오후 11:30 ~ 8월 24일(월) 오전 1:30"))
+    }
+
+    @Test
+    fun `empty month produces a complete plain text message`() {
+        val text = CalendarExportFormatter.formatMonth(YearMonth.of(2026, 8), emptyList(), zone)
+
+        assertEquals("2026년 8월 일정\n\n일정이 없습니다.", text)
     }
 
     private fun event(

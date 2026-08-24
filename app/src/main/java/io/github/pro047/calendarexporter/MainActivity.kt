@@ -15,7 +15,6 @@ import android.widget.TextView
 import io.github.pro047.calendarexporter.data.CalendarProviderDataSource
 import io.github.pro047.calendarexporter.data.CalendarRepository
 import io.github.pro047.calendarexporter.export.CalendarShareService
-import io.github.pro047.calendarexporter.export.ExportFormat
 import io.github.pro047.calendarexporter.model.DeviceCalendar
 import io.github.pro047.calendarexporter.model.EventPeriod
 import io.github.pro047.calendarexporter.model.ExtractionUiState
@@ -54,14 +53,11 @@ class MainActivity : Activity() {
         previousMonthButton.setOnClickListener { changeMonth(-1) }
         nextMonthButton.setOnClickListener { changeMonth(1) }
         actionButton.setOnClickListener { ensurePermissionAndLoad() }
-        findViewById<Button>(R.id.exportCsvButton).setOnClickListener {
-            shareEvents(ExportFormat.CSV)
+        findViewById<Button>(R.id.exportTextFileButton).setOnClickListener {
+            shareEvents { month, events -> shareService.shareTextFile(month, events) }
         }
-        findViewById<Button>(R.id.exportJsonButton).setOnClickListener {
-            shareEvents(ExportFormat.JSON)
-        }
-        findViewById<Button>(R.id.exportTextButton).setOnClickListener {
-            shareEvents(ExportFormat.TEXT)
+        findViewById<Button>(R.id.exportPlainTextButton).setOnClickListener {
+            shareEvents { month, events -> shareService.sharePlainText(month, events) }
         }
         renderPermissionState()
     }
@@ -266,9 +262,11 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun shareEvents(format: ExportFormat) {
+    private fun shareEvents(
+        share: (YearMonth, List<NormalizedCalendarEvent>) -> Unit,
+    ) {
         if (loadedEvents.isEmpty()) return
-        runCatching { shareService.share(selectedMonth, loadedEvents, format) }
+        runCatching { share(selectedMonth, loadedEvents) }
             .onFailure {
                 renderState(
                     ExtractionUiState.Error(

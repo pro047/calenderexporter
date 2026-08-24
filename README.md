@@ -1,6 +1,6 @@
 # 한 달 일정 파일 만들기
 
-Android `CalendarContract`에서 기기에 동기화된 월간 일정을 읽어 CSV, JSON 또는 텍스트 파일로 공유하는 읽기 전용 MVP입니다.
+Android `CalendarContract`에서 기기에 동기화된 월간 일정을 읽어 텍스트 파일 또는 메시지 본문으로 공유하는 읽기 전용 앱입니다.
 
 ## 기능
 
@@ -11,14 +11,15 @@ Android `CalendarContract`에서 기기에 동기화된 월간 일정을 읽어 
 - 종일·여러 날·월 경계·0분 일정 처리
 - 취소 일정 제외 및 `eventId:beginMillis` 인스턴스 식별
 - 월간 목록 미리보기
-- UTF-8 BOM CSV, JSON, 일반 텍스트 내보내기
-- 읽기 전용 캐시 URI를 이용한 Android 공유 시트
+- UTF-8 텍스트 파일 내보내기
+- 메시지·카카오톡으로 보낼 수 있는 일반 텍스트 내보내기
+- 읽기 전용 캐시 URI와 Android 공유 시트
 
 앱은 `WRITE_CALENDAR`와 인터넷 권한을 선언하지 않습니다.
 
 ## 설치 파일 받기
 
-GitHub의 최신 Release에서 `month-calendar-exporter-v0.1.0.apk`를 내려받아
+GitHub의 최신 Release에서 `month-calendar-exporter-v0.1.1.apk`를 내려받아
 설치합니다. 앱스토어를 거치지 않으므로 휴대폰에서 다운로드에 사용한 브라우저의
 `출처를 알 수 없는 앱 설치`를 한 번 허용해야 할 수 있습니다.
 
@@ -62,7 +63,7 @@ Android Studio에서는 이 디렉터리를 프로젝트로 열고 `app` 구성�
 2. `이전 달`·`다음 달` 버튼으로 가져올 달을 선택합니다.
 3. `가져올 일정표`에서 하나 이상 선택합니다.
 4. `이 달 일정 불러오기`를 누릅니다.
-5. 목록을 확인한 뒤 `표 파일`, `자료 파일`, `글 파일` 중 하나를 누릅니다.
+5. 목록을 확인한 뒤 `텍스트 파일로 내보내기` 또는 `텍스트로 내보내기`를 누릅니다.
 6. 화면 아래에 나타난 보낼 곳 목록에서 저장하거나 전달할 앱을 선택합니다.
 
 ## 데이터 구조
@@ -74,7 +75,8 @@ Calendar Provider
   → CalendarEventNormalizer
   → MainActivity 미리보기
   → CalendarExportFormatter
-  → FileProvider / Android Sharesheet
+  → 텍스트 파일 또는 일반 텍스트
+  → Android Sharesheet
 ```
 
 종일 일정의 종료 날짜는 제외 경계입니다. 예를 들어 `2026-08-24` 하루짜리 종일 일정은 시작일 `2026-08-24`, 종료일 `2026-08-25`로 내보냅니다.

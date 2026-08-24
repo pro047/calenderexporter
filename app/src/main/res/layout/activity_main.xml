@@ -82,35 +82,23 @@
 
     <LinearLayout
         android:id="@+id/exportContainer"
-        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <Button
-            android:id="@+id/exportCsvButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            android:id="@+id/exportTextFileButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/export_csv" />
+            android:text="@string/export_text_file" />
 
         <Button
-            android:id="@+id/exportJsonButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            android:id="@+id/exportPlainTextButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/export_json" />
-
-        <Button
-            android:id="@+id/exportTextButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/export_text" />
+            android:layout_marginTop="8dp"
+            android:text="@string/export_plain_text" />
     </LinearLayout>
 
     <ScrollView

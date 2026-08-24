@@ -37,12 +37,12 @@ https://pro047.github.io/calenderexporter/
 
 - 앱 아이콘
 - `한 달 일정 파일 만들기`
-- `안드로이드용 · 버전 0.1.0`
+- `안드로이드용 · 버전 0.1.1`
 
 ### 핵심 영역
 
 - 제목: `한 달 일정을 한 번에 파일로 만드세요`
-- 설명: `휴대폰 일정표에서 원하는 달을 골라 표 파일이나 글 파일로 간단히 보낼 수 있습니다.`
+- 설명: `휴대폰 일정표에서 원하는 달을 골라 텍스트 파일이나 메시지로 보낼 수 있습니다.`
 - 큰 버튼: `앱 다운로드하기`
 - 보조 안내: `안드로이드 8 이상 휴대폰용 · 약 1.8MB`
 
@@ -51,7 +51,7 @@ https://pro047.github.io/calenderexporter/
 다운로드 버튼은 현재 공개된 다음 파일에 연결한다.
 
 ```text
-https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk
+https://github.com/pro047/calenderexporter/releases/download/v0.1.1/month-calendar-exporter-v0.1.1.apk
 ```
 
 ### 안심 안내
