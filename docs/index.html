@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="한 달의 휴대폰 일정을 표 파일이나 글 파일로 간단히 만드는 안드로이드 앱입니다.">
+  <meta name="theme-color" content="#f6f8fc">
+  <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+  <title>한 달 일정 파일 만들기</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #234f96;
+      --blue-soft: #edf3ff;
+      --green: #08783e;
+      --green-dark: #056332;
+      --ink: #172033;
+      --muted: #4f5d72;
+      --line: #d8dfeb;
+      --paper: #ffffff;
+      --canvas: #f6f8fc;
+      --warning: #fff7dc;
+      --warning-line: #e1bd47;
+      --shadow: 0 14px 36px rgba(28, 48, 78, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--canvas);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 100% 0, #e7efff 0, transparent 34rem),
+        var(--canvas);
+      font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 4px solid #f0b429;
+      outline-offset: 4px;
+    }
+
+    .wrap {
+      width: min(100% - 32px, 760px);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      padding: 20px 0 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 5px 14px rgba(35, 79, 150, 0.20);
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .brand-meta {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    main { padding: 20px 0 64px; }
+
+    .hero {
+      padding: clamp(28px, 7vw, 54px) clamp(20px, 6vw, 52px);
+      text-align: center;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #173b75;
+      font-size: clamp(30px, 7.5vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+      word-break: keep-all;
+    }
+
+    .lead {
+      max-width: 570px;
+      margin: 18px auto 26px;
+      color: #354359;
+      font-size: clamp(18px, 4.6vw, 21px);
+      line-height: 1.65;
+      text-wrap: pretty;
+      word-break: keep-all;
+    }
+
+    .download-button {
+      display: flex;
+      min-height: 68px;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #fff;
+      background: var(--green);
+      border: 3px solid transparent;
+      border-radius: 16px;
+      box-shadow: 0 8px 0 #04542b, 0 12px 22px rgba(8, 120, 62, 0.22);
+      font-size: clamp(21px, 5.5vw, 26px);
+      font-weight: 850;
+      line-height: 1.25;
+      text-decoration: none;
+      transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+    }
+
+    .download-button:hover { background: var(--green-dark); }
+
+    .download-button:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #04542b, 0 7px 14px rgba(8, 120, 62, 0.20);
+    }
+
+    .download-icon {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      fill: currentColor;
+    }
+
+    .download-meta {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    section { margin-top: 42px; }
+
+    h2 {
+      margin: 0 0 20px;
+      color: #1c3766;
+      font-size: clamp(25px, 6vw, 32px);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+    }
+
+    .safety-grid {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .safety-grid li {
+      position: relative;
+      min-height: 64px;
+      padding: 16px 18px 16px 54px;
+      background: var(--blue-soft);
+      border: 1px solid #cfdbf2;
+      border-radius: 16px;
+      font-weight: 650;
+    }
+
+    .safety-grid li::before {
+      content: "✓";
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      width: 25px;
+      height: 25px;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 50%;
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 25px;
+      text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 78px;
+      padding: 18px 18px 18px 76px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      counter-increment: step;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 15px;
+      left: 18px;
+      width: 43px;
+      height: 43px;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 50%;
+      font-size: 22px;
+      font-weight: 850;
+      line-height: 43px;
+      text-align: center;
+    }
+
+    .steps strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 20px;
+      word-break: keep-all;
+    }
+
+    details {
+      overflow: hidden;
+      background: var(--paper);
+      border: 2px solid #b8c8e3;
+      border-radius: 18px;
+    }
+
+    summary {
+      position: relative;
+      min-height: 64px;
+      padding: 16px 54px 16px 20px;
+      color: #173b75;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1;
+      transform: translateY(-52%);
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    .help-body {
+      padding: 4px 20px 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .help-body ol {
+      margin: 20px 0;
+      padding-left: 28px;
+    }
+
+    .help-body li { margin: 0 0 14px; }
+
+    .warning {
+      margin: 20px 0 0;
+      padding: 16px;
+      background: var(--warning);
+      border: 1px solid var(--warning-line);
+      border-left-width: 6px;
+      border-radius: 12px;
+    }
+
+    .warning strong { display: block; }
+
+    .privacy-note {
+      padding: 20px;
+      background: #eef8f2;
+      border: 1px solid #bcdcc8;
+      border-radius: 16px;
+    }
+
+    .privacy-note p { margin: 0; }
+
+    .privacy-note p + p { margin-top: 8px; }
+
+    .repeat-download {
+      margin-top: 42px;
+      padding: 28px 20px;
+      text-align: center;
+      background: #eaf1ff;
+      border-radius: 20px;
+    }
+
+    .repeat-download p {
+      margin: 0 0 18px;
+      color: #354359;
+      font-weight: 700;
+    }
+
+    .repeat-download .download-button {
+      min-height: 62px;
+      font-size: 21px;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      text-align: center;
+    }
+
+    footer p { margin: 4px 0; }
+
+    @media (min-width: 620px) {
+      .safety-grid { grid-template-columns: 1fr 1fr; }
+      .safety-grid li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .download-button { transition: none; }
+    }
+
+    @media (forced-colors: active) {
+      .download-button,
+      .steps li::before,
+      .safety-grid li::before { border: 2px solid ButtonText; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap brand">
+      <img src="assets/app-icon.svg" width="52" height="52" alt="">
+      <div>
+        <p class="brand-name">한 달 일정 파일 만들기</p>
+        <p class="brand-meta">안드로이드용 · 버전 0.1.0</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="main-title">
+      <h1 id="main-title">한 달 일정을 한 번에 파일로 만드세요</h1>
+      <p class="lead">휴대폰 일정표에서 원하는 달을 골라 표 파일이나 글 파일로 간단히 보낼 수 있습니다.</p>
+      <a class="download-button" href="https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk" aria-describedby="download-info">
+        <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3a1 1 0 0 1 2 0v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V3ZM5 17a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
+        <span>앱 다운로드하기</span>
+      </a>
+      <p class="download-meta" id="download-info">안드로이드 8 이상 휴대폰용 · 약 1.8MB</p>
+    </section>
+
+    <section aria-labelledby="safe-title">
+      <h2 id="safe-title">안심하고 사용하세요</h2>
+      <ul class="safety-grid">
+        <li>일정을 읽기만 하고 바꾸거나 지우지 않습니다.</li>
+        <li>앱이 일정을 자동으로 인터넷에 보내지 않습니다.</li>
+        <li>필요한 파일은 휴대폰 안에서 만듭니다.</li>
+        <li>파일을 보낼 앱과 사람은 직접 선택합니다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">설치는 3단계면 됩니다</h2>
+      <ol class="steps">
+        <li><strong>다운로드 버튼을 누르세요.</strong>위의 초록색 버튼을 누릅니다.</li>
+        <li><strong>받은 파일을 설치하세요.</strong>다운로드한 파일을 열고 <b>설치</b>를 누릅니다.</li>
+        <li><strong>일정 읽기를 허용하세요.</strong>앱을 열고 <b>일정 읽기 허용</b>을 누릅니다.</li>
+      </ol>
+    </section>
+
+    <section aria-label="설치 도움말">
+      <details>
+        <summary>설치가 안 될 때 보기</summary>
+        <div class="help-body">
+          <ol>
+            <li>다운로드가 시작되지 않으면 카카오톡 오른쪽 위 메뉴에서 <b>다른 브라우저로 열기</b>를 선택하세요.</li>
+            <li>설치 차단 화면에 나온 <b>설정</b>을 누르세요.</li>
+            <li>다운로드에 사용한 인터넷 앱의 <b>이 출처 허용</b>을 켜세요.</li>
+            <li>그래도 막히는 삼성 휴대폰에서만 <b>설정 → 보안 및 개인정보 보호 → 자동 차단</b>을 설치할 때 잠시 끄세요.</li>
+            <li>설치가 끝나면 바꾼 보안 설정을 원래대로 되돌리세요.</li>
+          </ol>
+          <p>휴대폰 모델과 안드로이드 버전에 따라 설정 이름이 조금 다를 수 있습니다.</p>
+          <p class="warning"><strong>꼭 확인하세요.</strong>자동 차단 해제는 다른 방법으로 설치되지 않을 때만 사용하고, 설치가 끝나면 반드시 다시 켜세요.</p>
+        </div>
+      </details>
+    </section>
+
+    <section aria-labelledby="privacy-title">
+      <h2 id="privacy-title">내 일정은 어떻게 처리되나요?</h2>
+      <div class="privacy-note">
+        <p>일정 확인과 파일 만들기는 모두 이 휴대폰 안에서 이루어집니다.</p>
+        <p>공유 버튼을 누른 뒤 파일을 보낼 앱과 사람은 사용자가 직접 고릅니다.</p>
+      </div>
+    </section>
+
+    <div class="repeat-download">
+      <p>이제 앱을 받아 한 달 일정을 정리해 보세요.</p>
+      <a class="download-button" href="https://github.com/pro047/calenderexporter/releases/download/v0.1.0/month-calendar-exporter-v0.1.0.apk">
+        <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3a1 1 0 0 1 2 0v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V3ZM5 17a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
+        <span>앱 다운로드하기</span>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>한 달 일정 파일 만들기 · 버전 0.1.0</p>
+      <p>로그인, 광고, 방문자 추적 없이 이용할 수 있습니다.</p>
+    </div>
+  </footer>
+</body>
+</html>
