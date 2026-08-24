@@ -2,7 +2,7 @@
 
 ## 1. 목표
 
-GitHub를 모르는 사용자도 링크 하나를 눌러 `한 달 일정 파일 만들기` 앱을 내려받고
+GitHub를 모르는 사용자도 링크 하나를 눌러 `한 달 일정 보내기` 앱을 내려받고
 설치할 수 있는 모바일 우선 안내 페이지를 만든다.
 
 완성된 페이지는 카카오톡으로 주소 하나만 전달할 수 있어야 하며, 로그인이나
@@ -36,8 +36,8 @@ https://pro047.github.io/calenderexporter/
 ### 상단
 
 - 앱 아이콘
-- `한 달 일정 파일 만들기`
-- `안드로이드용 · 버전 0.1.1`
+- `한 달 일정 보내기`
+- `안드로이드용 · 버전 0.1.2`
 
 ### 핵심 영역
 
@@ -51,7 +51,7 @@ https://pro047.github.io/calenderexporter/
 다운로드 버튼은 현재 공개된 다음 파일에 연결한다.
 
 ```text
-https://github.com/pro047/calenderexporter/releases/download/v0.1.1/month-calendar-exporter-v0.1.1.apk
+https://github.com/pro047/calenderexporter/releases/download/v0.1.2/month-calendar-exporter-v0.1.2.apk
 ```
 
 ### 안심 안내
@@ -63,7 +63,7 @@ https://github.com/pro047/calenderexporter/releases/download/v0.1.1/month-calend
 
 ### 설치 3단계
 
-1. 초록색 `앱 다운로드하기` 버튼을 누른다.
+1. 파란색 `앱 다운로드` 버튼을 누른다.
 2. 받은 파일을 열고 `설치`를 누른다.
 3. 앱을 열고 `일정 읽기 허용`을 누른다.
 

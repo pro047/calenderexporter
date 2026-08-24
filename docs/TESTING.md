@@ -1,5 +1,24 @@
 # 테스트 기록
 
+## 0.1.2 자동 검증
+
+검증일: 2026-08-24
+
+- 전체 단위 테스트 17개 통과, 실패·오류 0개
+- UI 구조 테스트 3개 추가
+  - `카톡·문자로 보내기`가 첫 번째 주 버튼인지 확인
+  - 공유 버튼 최소 높이 56dp와 미리보기 16sp 이상 확인
+  - 일정표가 가로 스크롤이 아닌 세로 목록인지 확인
+- `test`, `lintRelease`, `assembleRelease` 성공, Lint 문제 0개
+- APK 내부 버전: `versionCode 3`, `versionName 0.1.2`
+- 최소 Android 8(API 26), target SDK 36 확인
+- 사용자 런타임 권한은 `android.permission.READ_CALENDAR` 하나
+- APK Signature Scheme v2 서명 검증 성공
+- 서명 인증서 SHA-256: `0E781F311FF815510F2D5C4CE4428466D9B6879B98841C0413A5517E684D28D8`
+- APK SHA-256: `7AC509AF2204F9FAF9A0C7BC9929F5930714DA9409C3155A430F0A264DD255E4`
+- 0.1.1과 같은 서명 키를 사용해 기존 설치본 위에 업데이트 가능
+- 연결된 Android 기기가 없어 실제 화면과 메시지·카카오톡 공유 선택은 실기기 확인 필요
+
 ## 0.1.1 자동 검증
 
 검증일: 2026-08-24

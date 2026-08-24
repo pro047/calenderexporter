@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_background">#F2F2F7</color>
+    <color name="group_surface">#FFFFFF</color>
+    <color name="ink_primary">#1C1C1E</color>
+    <color name="ink_secondary">#5A5A60</color>
+    <color name="action_blue">#0066CC</color>
+    <color name="action_blue_pressed">#004F9E</color>
+    <color name="action_blue_disabled">#9BB9D6</color>
+    <color name="secondary_surface">#E6F0FA</color>
+    <color name="secondary_surface_pressed">#D4E5F5</color>
+    <color name="separator">#E5E5EA</color>
+</resources>

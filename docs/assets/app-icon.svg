@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
-  <title id="title">한 달 일정 파일 만들기 앱 아이콘</title>
+  <title id="title">한 달 일정 보내기 앱 아이콘</title>
   <rect x="4" y="5" width="40" height="39" rx="4" fill="#315da8"/>
   <path fill="#fff" d="M4 14h40v5H4zm9-12h4v8h-4zm18 0h4v8h-4zM12 24h7v7h-7zm11 0h7v7h-7zm11 0h6v7h-6zM12 34h7v6h-7zm11 0h7v6h-7z"/>
 </svg>

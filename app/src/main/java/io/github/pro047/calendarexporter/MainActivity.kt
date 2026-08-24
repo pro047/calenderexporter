@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
@@ -34,6 +35,7 @@ class MainActivity : Activity() {
     private lateinit var nextMonthButton: Button
     private lateinit var monthText: TextView
     private lateinit var calendarContainer: LinearLayout
+    private lateinit var calendarHintText: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var summaryText: TextView
     private lateinit var resultText: TextView
@@ -71,6 +73,7 @@ class MainActivity : Activity() {
             calendarsLoaded = false
             calendarChecks.clear()
             calendarContainer.removeAllViews()
+            showCalendarHint(R.string.calendar_permission_hint)
             renderState(ExtractionUiState.Idle)
         }
     }
@@ -103,6 +106,7 @@ class MainActivity : Activity() {
         nextMonthButton = findViewById(R.id.nextMonthButton)
         monthText = findViewById(R.id.monthText)
         calendarContainer = findViewById(R.id.calendarContainer)
+        calendarHintText = findViewById(R.id.calendarHintText)
         progressBar = findViewById(R.id.progressBar)
         summaryText = findViewById(R.id.summaryText)
         resultText = findViewById(R.id.resultText)
@@ -113,7 +117,8 @@ class MainActivity : Activity() {
         selectedMonth = selectedMonth.plusMonths(delta)
         updateMonthText()
         summaryText.text = ""
-        resultText.text = ""
+        summaryText.visibility = View.GONE
+        resultText.setText(R.string.preview_hint)
         loadedEvents = emptyList()
         exportContainer.visibility = View.GONE
     }
@@ -172,6 +177,8 @@ class MainActivity : Activity() {
     }
 
     private fun loadCalendars(loadEventsAfterward: Boolean = false) {
+        calendarContainer.removeAllViews()
+        showCalendarHint(R.string.provider_loading)
         renderState(ExtractionUiState.Loading)
         executor.execute {
             val result = runCatching(repository::getCalendars)
@@ -192,16 +199,33 @@ class MainActivity : Activity() {
         calendarContainer.removeAllViews()
         calendarChecks.clear()
         if (calendars.isEmpty()) {
-            calendarContainer.addView(TextView(this).apply { text = getString(R.string.no_calendars) })
+            showCalendarHint(R.string.no_calendars)
             return
         }
-        calendars.forEach { calendar ->
+        calendarHintText.visibility = View.GONE
+        calendars.forEachIndexed { index, calendar ->
+            if (index > 0) {
+                calendarContainer.addView(View(this).apply {
+                    setBackgroundColor(getColor(R.color.separator))
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        1.dp,
+                    )
+                })
+            }
             val checkBox = CheckBox(this).apply {
                 text = calendar.displayName.ifBlank { getString(R.string.unnamed_calendar) }
                 isChecked = calendar.isVisible
+                minHeight = 52.dp
+                textSize = 17f
+                setTextColor(getColor(R.color.ink_primary))
                 contentDescription = getString(
                     R.string.calendar_choice_description,
                     calendar.displayName,
+                )
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
                 )
             }
             calendarChecks[calendar.id] = checkBox
@@ -238,18 +262,25 @@ class MainActivity : Activity() {
         when (state) {
             ExtractionUiState.Idle -> {
                 summaryText.text = ""
-                resultText.text = ""
+                summaryText.visibility = View.GONE
+                resultText.setText(R.string.preview_hint)
                 exportContainer.visibility = View.GONE
             }
-            ExtractionUiState.Loading -> summaryText.text = getString(R.string.provider_loading)
+            ExtractionUiState.Loading -> {
+                summaryText.visibility = View.VISIBLE
+                summaryText.text = getString(R.string.provider_loading)
+                resultText.setText(R.string.preview_hint)
+            }
             is ExtractionUiState.Error -> {
                 loadedEvents = emptyList()
+                summaryText.visibility = View.VISIBLE
                 summaryText.text = getString(R.string.load_error_title)
                 resultText.text = state.message
                 exportContainer.visibility = View.GONE
             }
             is ExtractionUiState.Success -> {
                 loadedEvents = state.events
+                summaryText.visibility = View.VISIBLE
                 summaryText.text = getString(
                     R.string.event_count,
                     selectedMonth.year,
@@ -261,6 +292,14 @@ class MainActivity : Activity() {
             }
         }
     }
+
+    private fun showCalendarHint(textRes: Int) {
+        calendarHintText.setText(textRes)
+        calendarHintText.visibility = View.VISIBLE
+    }
+
+    private val Int.dp: Int
+        get() = (this * resources.displayMetrics.density).toInt()
 
     private fun shareEvents(
         share: (YearMonth, List<NormalizedCalendarEvent>) -> Unit,
