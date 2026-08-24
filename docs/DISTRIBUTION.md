@@ -29,10 +29,11 @@ keystore.properties
 
 1. `versionCode`를 이전보다 크게 올린다.
 2. 사용자에게 보이는 `versionName`을 정한다.
-3. `test`, `lintRelease`, `assembleRelease`를 실행한다.
-4. APK 서명과 SHA-256을 확인한다.
-5. 실제 기기에서 새 설치와 기존 버전 위 덮어쓰기를 확인한다.
-6. Release 설명, APK, SHA-256 파일을 게시한다.
+3. GitHub 직접 배포는 `test`, `lintRelease`, `assembleRelease`를 실행한다.
+4. Google Play 배포는 `test`, `lintRelease`, `bundleRelease`를 실행한다.
+5. APK 또는 AAB 서명과 SHA-256을 확인한다.
+6. 실제 기기에서 새 설치와 기존 버전 위 덮어쓰기를 확인한다.
+7. Release 설명, APK, SHA-256 파일을 게시한다.
 
 Windows PowerShell 빌드 명령:
 
@@ -42,3 +43,12 @@ $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'
 ```
 
 배포 파일은 `app/build/outputs/apk/release/app-release.apk`에서 생성된다.
+
+Google Play용 AAB:
+
+```powershell
+.\gradlew.bat test lintRelease bundleRelease
+```
+
+AAB는 `app/build/outputs/bundle/release/app-release.aab`에서 생성된다. Play 앱 서명을
+사용하면 로컬 릴리즈 키는 업로드 키로 유지하고 같은 키로 후속 AAB를 서명한다.
